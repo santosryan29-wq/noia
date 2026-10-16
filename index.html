@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumo de Tokens</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 30px;
+            color: #222;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #0001;
+        }
+
+        h1 {
+            color: #2563eb;
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eff6ff;
+            border-radius: 8px;
+        }
+
+        .numero {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .aviso {
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Consumo de Tokens</h1>
+
+        <p>
+            Digite uma solicitação para observar uma estimativa
+            de quantos tokens ela pode utilizar.
+        </p>
+
+        <textarea id="solicitacao"
+            placeholder="Ex.: Explique inteligência artificial com exemplos..."></textarea>
+
+        <button onclick="calcularTokens()">
+            Estimar Tokens
+        </button>
+
+        <div class="resultado" id="resultado">
+            <p>O resultado aparecerá aqui.</p>
+        </div>
+
+        <p class="aviso">
+            Atenção: esta ferramenta apresenta uma estimativa simplificada.
+            O consumo real depende do modelo e da resposta gerada.
+        </p>
+    </div>
+
+    <script>
+        function calcularTokens() {
+            const texto = document.getElementById("solicitacao").value.trim();
+            const resultado = document.getElementById("resultado");
+
+            if (!texto) {
+                resultado.innerHTML = "<p>Digite uma solicitação primeiro.</p>";
+                return;
+            }
+
+            // Estimativa aproximada para textos em português
+            const tokensEntrada = Math.ceil(texto.length / 4);
+
+            // Estimativa ilustrativa de tokens da resposta
+            const tokensSaida = Math.ceil(tokensEntrada * 3);
+
+            const total = tokensEntrada + tokensSaida;
+
+            resultado.innerHTML = `
+                <h3>Resultado da estimativa</h3>
+                <p>Tokens de entrada: 
+                    <span class="numero">${tokensEntrada}</span>
+                </p>
+                <p>Tokens de saída estimados:
+                    <span class="numero">${tokensSaida}</span>
+                </p>
+                <p>Total estimado:
+                    <span class="numero">${total}</span>
+                </p>
+            `;
+        }
+    </script>
+</body>
+</html>
